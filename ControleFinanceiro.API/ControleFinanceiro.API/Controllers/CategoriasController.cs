@@ -11,21 +11,24 @@ namespace ControleFinanceiro.API.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
+        #region Construtor
         private readonly ICategoriaRepositorio _categoriaRepositorio;
 
         public CategoriasController(ICategoriaRepositorio categoriaRepositorio)
         {
             _categoriaRepositorio = categoriaRepositorio;
         }
+        #endregion
 
-        // GET: api/Categorias
+        #region PegarTodos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategorias()
         {
             return await _categoriaRepositorio.PegarTodos().ToListAsync();
         }
+        #endregion
 
-        // GET: api/Categorias/5
+        #region GetId
         [HttpGet("{id}")]
         public async Task<ActionResult<Categoria>> GetCategoria(int id)
         {
@@ -38,8 +41,9 @@ namespace ControleFinanceiro.API.Controllers
 
             return categoria;
         }
+        #endregion
 
-
+        #region Atualizar
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
         {
@@ -61,8 +65,9 @@ namespace ControleFinanceiro.API.Controllers
             return BadRequest(ModelState);
 
         }
+        #endregion
 
-
+        #region Inserir
         [HttpPost]
         public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
         {
@@ -78,8 +83,9 @@ namespace ControleFinanceiro.API.Controllers
 
             return BadRequest(ModelState);
         }
+        #endregion
 
-
+        #region Deletar
         [HttpDelete("{id}")]
         public async Task<ActionResult<Categoria>> DeleteCategoria(int id)
         {
@@ -96,5 +102,14 @@ namespace ControleFinanceiro.API.Controllers
                 mensagem = $"Categoria {categoria.Nome} excluída com sucesso"
             });
         }
+        #endregion
+
+        #region Filtrar
+        [HttpGet("FiltrarCategorias/{nomeCategoria}")]
+        public async Task<ActionResult<IEnumerable<Categoria>>> FiltrarCategorias(string nomeCategoria)
+        {
+            return await _categoriaRepositorio.FiltrarCategorias(nomeCategoria).ToListAsync();
+        }
+        #endregion
     }
 }
