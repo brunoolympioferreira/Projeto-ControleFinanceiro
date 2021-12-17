@@ -81,7 +81,7 @@ namespace ControleFinanceiro.API.Controllers
                 });
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(categoria);
         }
         #endregion
 
